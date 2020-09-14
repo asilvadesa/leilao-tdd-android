@@ -85,4 +85,39 @@ public class LeilaoTest {
         assertEquals(200.0, listaDeTresMaioresLances.get(2).getValor(), DELTA);
     }
 
+    @Test
+    public void deve_DevolveTresMaioresLances_QuandoNaoRecebeLance(){
+        List<Lance> listaDeTresMaioresLances =  CONSOLE.devolveListaTresMaioresLances();
+        assertEquals(0, listaDeTresMaioresLances.size());
+    }
+
+    @Test
+    public void deve_DevovleTresMaioresLances_QuandoRecebeUmLance(){
+        CONSOLE.proproeLance(new Lance(new Usuario("Anderson"), 200.0));
+        List<Lance> listaDeTresMaioresLances =  CONSOLE.devolveListaTresMaioresLances();
+        assertEquals(1, listaDeTresMaioresLances.size());
+        assertEquals(200, listaDeTresMaioresLances.get(0).getValor(), DELTA);
+    }
+
+    @Test
+    public void deve_DevovleTresMaioresLances_QuandoRecebeDoisLance(){
+        CONSOLE.proproeLance(new Lance(new Usuario("Anderson"), 200.0));
+        CONSOLE.proproeLance(new Lance(new Usuario("Anderson"), 500.0));
+        List<Lance> listaDeTresMaioresLances =  CONSOLE.devolveListaTresMaioresLances();
+        assertEquals(2, listaDeTresMaioresLances.size());
+        assertEquals(500, listaDeTresMaioresLances.get(0).getValor(), DELTA);
+    }
+
+    @Test
+    public void deve_DevovleTresMaioresLances_QuandoRecebeMaisDeTresLances(){
+        CONSOLE.proproeLance(new Lance(new Usuario("Anderson"), 200.0));
+        CONSOLE.proproeLance(new Lance(new Usuario("Anderson"), 500.0));
+        CONSOLE.proproeLance(new Lance(new Usuario("Anderson"), 1000.0));
+        CONSOLE.proproeLance(new Lance(new Usuario("Anderson"), 800.0));
+
+        List<Lance> listaDeTresMaioresLances =  CONSOLE.devolveListaTresMaioresLances();
+        assertEquals(3, listaDeTresMaioresLances.size());
+        assertEquals(1000, listaDeTresMaioresLances.get(0).getValor(), DELTA);
+    }
+
 }

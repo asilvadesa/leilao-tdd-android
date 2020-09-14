@@ -51,6 +51,10 @@ public class Leilao implements Serializable {
     }
 
     public List<Lance> devolveListaTresMaioresLances() {
-        return lances.subList(0,3);
+        int tamanhoDaLista = lances.size();
+        if(tamanhoDaLista > 3){
+            tamanhoDaLista = 3;
+        }
+        return lances.subList(0, tamanhoDaLista);
     }
 }
