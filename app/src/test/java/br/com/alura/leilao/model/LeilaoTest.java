@@ -2,30 +2,33 @@ package br.com.alura.leilao.model;
 
 import org.junit.Test;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class LeilaoTest {
+
 
     public static final double DELTA = 0.0001;
     public final Leilao CONSOLE = new Leilao("Console");
 
     @Test
-    public void deve_DevolverDescricao_QuandoRecebeDescricao() {
+    public void deve_DevolveDescricao_QuandoRecebeDescricao() {
 
         String descricaoDevolvida = CONSOLE.getDescricao();
         assertEquals("Console", CONSOLE.getDescricao());
     }
 
     @Test
-    public void deve_DevolverMaiorLance_QuandoRececeApenasUmlance(){
+    public void deve_DevolveMaiorLance_QuandoRececeApenasUmlance(){
 
         CONSOLE.proproeLance(new Lance(new Usuario("Anderson"), 200.0));
         Double maiorLanceConsole = CONSOLE.getMaiorLance();
-        assertEquals(200.0, maiorLanceConsole, 0.0001);
+        assertEquals(200.0, maiorLanceConsole, DELTA);
     }
 
     @Test
-    public void deve_DevolverMaiorLance_QuandoRecebeLanceEmOrdemCrescente(){
+    public void deve_DevolveMaiorLance_QuandoRecebeLanceEmOrdemCrescente(){
 
         CONSOLE.proproeLance(new Lance(new Usuario("Anderson"), 2000.0));
         CONSOLE.proproeLance(new Lance(new Usuario("Maria"), 3000.0));
@@ -34,38 +37,52 @@ public class LeilaoTest {
     }
 
     @Test
-    public void deve_DevolverMaiorLance_QuandoRecebeLanceEmOrdemDecrescente(){
+    public void deve_DevolveMaiorLance_QuandoRecebeLanceEmOrdemDecrescente(){
 
         CONSOLE.proproeLance(new Lance(new Usuario("Maria"), 3000.0));
         CONSOLE.proproeLance(new Lance(new Usuario("Anderson"), 2000.0));
         Double maiorLanceComputador = CONSOLE.getMaiorLance();
-        assertEquals(3000.0, maiorLanceComputador, 0.0001);
+        assertEquals(3000.0, maiorLanceComputador, DELTA);
     }
 
     @Test
-    public void deve_DevolverMenorLance_QuandoRececeApenasUmlance(){
+    public void deve_DevolveMenorLance_QuandoRececeApenasUmlance(){
 
         CONSOLE.proproeLance(new Lance(new Usuario("Anderson"), 200.0));
         Double maiorLanceConsole = CONSOLE.getMenorLance();
-        assertEquals(200.0, maiorLanceConsole, 0.0001);
+        assertEquals(200.0, maiorLanceConsole, DELTA);
     }
 
     @Test
-    public void deve_DevolverMenorLance_QuandoRececeLanceEmOrdemCrescente(){
+    public void deve_DevolveMenorLance_QuandoRececeLanceEmOrdemCrescente(){
 
         CONSOLE.proproeLance(new Lance(new Usuario("Anderson"), 200.0));
         CONSOLE.proproeLance(new Lance(new Usuario("Maria"), 300.0));
         Double maiorLanceConsole = CONSOLE.getMenorLance();
-        assertEquals(200.0, maiorLanceConsole, 0.0001);
+        assertEquals(200.0, maiorLanceConsole, DELTA);
     }
 
     @Test
-    public void deve_DevolverMenorLance_QuandoRececeLanceEmOrdemDecrescente(){
+    public void deve_DevolveMenorLance_QuandoRececeLanceEmOrdemDecrescente(){
 
         CONSOLE.proproeLance(new Lance(new Usuario("Maria"), 300.0));
         CONSOLE.proproeLance(new Lance(new Usuario("Anderson"), 200.0));
         Double maiorLanceConsole = CONSOLE.getMenorLance();
-        assertEquals(200.0, maiorLanceConsole, 0.0001);
+        assertEquals(200.0, maiorLanceConsole, DELTA);
+    }
+
+    @Test
+    public void deve_DevolveTresMaioresLances_QuandoRecebeTresLances(){
+        CONSOLE.proproeLance(new Lance(new Usuario("Anderson"), 200.0));
+        CONSOLE.proproeLance(new Lance(new Usuario("Maria"), 300.0));
+        CONSOLE.proproeLance(new Lance(new Usuario("Anderson"), 250.0));
+
+        List<Lance> listaDeTresMaioresLances =  CONSOLE.devolveListaTresMaioresLances();
+
+        assertEquals(3, listaDeTresMaioresLances.size());
+        assertEquals(300.0, listaDeTresMaioresLances.get(0).getValor(), DELTA);
+        assertEquals(250.0, listaDeTresMaioresLances.get(1).getValor(), DELTA);
+        assertEquals(200.0, listaDeTresMaioresLances.get(2).getValor(), DELTA);
     }
 
 }
