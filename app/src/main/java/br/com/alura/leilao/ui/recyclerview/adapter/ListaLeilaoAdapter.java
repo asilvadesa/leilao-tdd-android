@@ -56,6 +56,7 @@ public class ListaLeilaoAdapter extends RecyclerView.Adapter<ListaLeilaoAdapter.
             super(itemView);
             descricao = itemView.findViewById(R.id.item_leilao_descricao);
             maiorLance = itemView.findViewById(R.id.item_leilao_maior_lance);
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
