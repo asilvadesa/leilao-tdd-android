@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 public class Lance implements Serializable, Comparable {
 
-    private final Usuario usuario;
+    private Usuario usuario;
     private final double valor;
 
     public Lance(Usuario usuario, double valor) {
@@ -29,5 +29,9 @@ public class Lance implements Serializable, Comparable {
             return 1;
         }
         return 0;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
     }
 }
