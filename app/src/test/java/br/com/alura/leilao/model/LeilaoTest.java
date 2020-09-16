@@ -118,6 +118,21 @@ public class LeilaoTest {
         List<Lance> listaDeTresMaioresLances =  CONSOLE.devolveListaTresMaioresLances();
         assertEquals(3, listaDeTresMaioresLances.size());
         assertEquals(1000, listaDeTresMaioresLances.get(0).getValor(), DELTA);
+        assertEquals(800, listaDeTresMaioresLances.get(1).getValor(), DELTA);
+        assertEquals(500, listaDeTresMaioresLances.get(2).getValor(), DELTA);
     }
+
+    @Test
+    public void deve_DevolveValorZeroParaMaiorLance_QuandoNaoTiverLances(){
+        Double maiorLanceDevolvido = CONSOLE.getMaiorLance();
+        assertEquals(0.0, maiorLanceDevolvido, DELTA);
+    }
+
+    @Test
+    public void deve_DevolveValorZeroParaMenorLance_QuandoNaoTiverLance(){
+        Double menorLanceDevolvido = CONSOLE.getMenorLance();
+        assertEquals(0.0, menorLanceDevolvido, DELTA);
+    }
+
 
 }

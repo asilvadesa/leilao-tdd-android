@@ -10,8 +10,8 @@ public class Leilao implements Serializable {
 
     private final String descricao;
     private final List<Lance> lances;
-    private Double maiorLance = Double.NEGATIVE_INFINITY;
-    private Double menorLance = Double.POSITIVE_INFINITY;
+    private Double maiorLance = 0.0;
+    private Double menorLance = 0.0;
 
     public Leilao(String descricao) {
         this.descricao = descricao;
@@ -19,9 +19,14 @@ public class Leilao implements Serializable {
     }
 
     public void proproeLance(Lance lance){
-        lances.add(lance);
-        Collections.sort(lances);
         double valorDoLance = lance.getValor();
+        lances.add(lance);
+        if(lances.size() == 1){
+            maiorLance = valorDoLance;
+            menorLance = valorDoLance;
+            return;
+        }
+        Collections.sort(lances);
         calculaMaiorLance(valorDoLance);
         calculaMenorLance(valorDoLance);
     }
