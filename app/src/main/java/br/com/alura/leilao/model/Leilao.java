@@ -20,6 +20,9 @@ public class Leilao implements Serializable {
 
     public void proproeLance(Lance lance){
         double valorDoLance = lance.getValor();
+        if(maiorLance > valorDoLance){
+            return;
+        }
         lances.add(lance);
         if(lances.size() == 1){
             maiorLance = valorDoLance;
@@ -61,5 +64,9 @@ public class Leilao implements Serializable {
             tamanhoDaLista = 3;
         }
         return lances.subList(0, tamanhoDaLista);
+    }
+
+    public int quantidadeDeLances() {
+        return lances.size();
     }
 }

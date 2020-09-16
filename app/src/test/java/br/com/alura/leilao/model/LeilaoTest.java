@@ -36,14 +36,6 @@ public class LeilaoTest {
         assertEquals(3000.0, maiorLanceComputador, DELTA);
     }
 
-    @Test
-    public void deve_DevolveMaiorLance_QuandoRecebeLanceEmOrdemDecrescente(){
-
-        CONSOLE.proproeLance(new Lance(new Usuario("Maria"), 3000.0));
-        CONSOLE.proproeLance(new Lance(new Usuario("Anderson"), 2000.0));
-        Double maiorLanceComputador = CONSOLE.getMaiorLance();
-        assertEquals(3000.0, maiorLanceComputador, DELTA);
-    }
 
     @Test
     public void deve_DevolveMenorLance_QuandoRececeApenasUmlance(){
@@ -63,25 +55,16 @@ public class LeilaoTest {
     }
 
     @Test
-    public void deve_DevolveMenorLance_QuandoRececeLanceEmOrdemDecrescente(){
-
-        CONSOLE.proproeLance(new Lance(new Usuario("Maria"), 300.0));
-        CONSOLE.proproeLance(new Lance(new Usuario("Anderson"), 200.0));
-        Double maiorLanceConsole = CONSOLE.getMenorLance();
-        assertEquals(200.0, maiorLanceConsole, DELTA);
-    }
-
-    @Test
     public void deve_DevolveTresMaioresLances_QuandoRecebeTresLances(){
         CONSOLE.proproeLance(new Lance(new Usuario("Anderson"), 200.0));
         CONSOLE.proproeLance(new Lance(new Usuario("Maria"), 300.0));
-        CONSOLE.proproeLance(new Lance(new Usuario("Anderson"), 250.0));
+        CONSOLE.proproeLance(new Lance(new Usuario("Anderson"), 350.0));
 
         List<Lance> listaDeTresMaioresLances =  CONSOLE.devolveListaTresMaioresLances();
 
         assertEquals(3, listaDeTresMaioresLances.size());
-        assertEquals(300.0, listaDeTresMaioresLances.get(0).getValor(), DELTA);
-        assertEquals(250.0, listaDeTresMaioresLances.get(1).getValor(), DELTA);
+        assertEquals(350.0, listaDeTresMaioresLances.get(0).getValor(), DELTA);
+        assertEquals(300.0, listaDeTresMaioresLances.get(1).getValor(), DELTA);
         assertEquals(200.0, listaDeTresMaioresLances.get(2).getValor(), DELTA);
     }
 
@@ -112,8 +95,8 @@ public class LeilaoTest {
     public void deve_DevovleTresMaioresLances_QuandoRecebeMaisDeTresLances(){
         CONSOLE.proproeLance(new Lance(new Usuario("Anderson"), 200.0));
         CONSOLE.proproeLance(new Lance(new Usuario("Anderson"), 500.0));
-        CONSOLE.proproeLance(new Lance(new Usuario("Anderson"), 1000.0));
         CONSOLE.proproeLance(new Lance(new Usuario("Anderson"), 800.0));
+        CONSOLE.proproeLance(new Lance(new Usuario("Anderson"), 1000.0));
 
         List<Lance> listaDeTresMaioresLances =  CONSOLE.devolveListaTresMaioresLances();
         assertEquals(3, listaDeTresMaioresLances.size());
@@ -134,5 +117,13 @@ public class LeilaoTest {
         assertEquals(0.0, menorLanceDevolvido, DELTA);
     }
 
+    @Test
+    public void naoDeve_AdcionarLance_QuandoForMenorQueMaiorLance(){
+        CONSOLE.proproeLance(new Lance(new Usuario("Anderson"), 500.0));
+        CONSOLE.proproeLance(new Lance(new Usuario("Anderson"), 400.0));
+        int quantidadeDeLancesDevolvida = CONSOLE.quantidadeDeLances();
+        assertEquals(1, quantidadeDeLancesDevolvida);
+
+    }
 
 }
